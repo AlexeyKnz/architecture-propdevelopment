@@ -1,0 +1,16 @@
+@startuml
+  participant Мобильное_приложение
+  participant Tenant_Core_App
+  participant Адаптер
+  participant API_Gateway
+  participant Партнёр
+
+  Мобильное_приложение->>Tenant_Core_App: "Открыть дверь" (JWT)
+  Tenant_Core_App->>Адаптер: Проверка прав (внутренний API)
+  Адаптер->>API_Gateway: Запрос (OAuth 2.0)
+  API_Gateway->>Партнёр: Преобразованный запрос
+  Партнёр-->>API_Gateway: Ответ
+  API_Gateway-->>Адаптер: Стандартизированный ответ
+  Адаптер-->>Tenant_Core_App: Результат
+  Tenant_Core_App-->>Мобильное_приложение: "Дверь открыта"
+@enduml
